@@ -1,0 +1,63 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  /* Superfícies — estúdio escuro, quente */
+  --canvas:         #0C0C0C;
+  --surface:        #161616;
+  --surface-raised: #1F1F1F;
+  --surface-float:  #282828;
+  --surface-hover:  #2E2E2E;
+
+  /* Texto — 4 níveis */
+  --ink:            #F0EEE9;
+  --ink-2:          #A8A49D;
+  --ink-3:          #6B6760;
+  --ink-ghost:      #3D3B38;
+
+  /* Acento */
+  --amber:          #F0A500;
+  --amber-dim:      rgba(240,165,0,0.12);
+  --amber-border:   rgba(240,165,0,0.30);
+  --brand:          #1D5EAE;
+  --brand-dim:      rgba(29,94,174,0.12);
+  --brand-border:   rgba(29,94,174,0.30);
+
+  /* Semânticos */
+  --green:          #3ECF8E;
+  --green-dim:      rgba(62,207,142,0.10);
+  --red:            #E5534B;
+  --red-dim:        rgba(229,83,75,0.10);
+  --blue:           #4A9EFF;
+
+  /* Bordas */
+  --b-faint:        rgba(255,255,255,0.04);
+  --b-soft:         rgba(255,255,255,0.07);
+  --b-mid:          rgba(255,255,255,0.11);
+  --b-strong:       rgba(255,255,255,0.20);
+
+  /* Raios */
+  --r-sm:   3px;
+  --r-md:   6px;
+  --r-lg:   10px;
+  --r-xl:   14px;
+}
+
+html, body {
+  height: 100%;
+  background: var(--canvas);
+  color: var(--ink);
+  font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a { color: inherit; text-decoration: none; }
+button { font-family: inherit; cursor: pointer; }
+input, textarea, select { font-family: inherit; color: inherit; }
+
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--b-mid); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--b-strong); }

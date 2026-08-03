@@ -1,0 +1,65 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+env/
+*.egg-info/
+
+# Builds
+.next/
+out/
+dist/
+build/
+
+# Vídeos e dados sensíveis
+samples/
+jobs/
+jobs-instance*/
+!apps/web/src/app/api/jobs/
+
+# Locks das instâncias locais (dev-instance.js)
+scripts/.instance-locks/
+
+# Env e segredos
+.env
+.env.local
+.env.*.local
+*.key
+
+# Whisper models (grandes)
+models/
+*.bin
+
+# Mídia
+*.mp4
+*.mov
+*.mkv
+*.wav
+*.mp3
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs
+*.log
+npm-debug.log*
+
+# Cache
+.cache/
+.turbo/
+*.tsbuildinfo

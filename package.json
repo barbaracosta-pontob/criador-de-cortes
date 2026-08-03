@@ -1,0 +1,21 @@
+{
+  "name": "pontob-cut-creator",
+  "version": "0.0.1",
+  "private": true,
+  "description": "Descobre cortes de video para redes sociais/ads com Whisper + Claude. App irmao do pontob-video-editor.",
+  "workspaces": [
+    "apps/*",
+    "packages/*",
+    "services/analysis"
+  ],
+  "scripts": {
+    "dev": "npm run dev --workspace=@pontob/cut-web",
+    "dev:instance": "node scripts/dev-instance.js",
+    "build": "npm run build --workspace=@pontob/cut-web",
+    "start": "npm run start --workspace=@pontob/cut-web",
+    "transcribe": "python services/transcription/run.py"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}

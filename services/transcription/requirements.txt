@@ -1,0 +1,59 @@
+# =============================================================================
+# Dependencias da transcricao (faster-whisper) — VERSOES TRAVADAS.
+#
+# Por que tudo pinado: numa instalacao limpa o pip puxava as versoes mais novas
+# de cada pacote e a transcricao quebrava em cascata (ctranslate2 4.7 crashava a
+# CPU com 0xC0000005; numpy 2.4.4/setuptools 82 sem pkg_resources; requests
+# ausente). Estas sao as versoes EXATAS do projeto mp4-transcript, que roda nesta
+# mesma maquina. Mantenha-as travadas para reprodutibilidade em novos computadores.
+#
+# IMPORTANTE: criar a .venv com Python 3.12 (ctranslate2 4.4.0 nao tem build para
+# Python 3.13+).
+# =============================================================================
+
+# --- nucleo da transcricao ---
+faster-whisper==1.0.3
+ctranslate2==4.4.0
+av==12.3.0
+onnxruntime==1.26.0
+tokenizers==0.23.1
+numpy==2.4.6
+
+# --- pkg_resources (removido do setuptools >= 81; ctranslate2 4.4.0 importa) ---
+setuptools==80.10.2
+
+# --- download de modelo (huggingface) ---
+huggingface_hub==1.15.0
+hf-xet==1.5.0
+filelock==3.29.0
+fsspec==2026.4.0
+requests==2.32.4
+httpx==0.28.1
+httpcore==1.0.9
+h11==0.16.0
+anyio==4.13.0
+certifi==2026.5.20
+charset-normalizer==3.4.7
+idna==3.15
+urllib3==2.7.0
+
+# --- utilitarios / transitivos travados ---
+tqdm==4.67.3
+colorama==0.4.6
+PyYAML==6.0.3
+packaging==26.2
+protobuf==7.35.0
+flatbuffers==25.12.19
+typing_extensions==4.15.0
+typing-inspection==0.4.2
+annotated-types==0.7.0
+annotated-doc==0.0.4
+
+# --- CLI do huggingface_hub (typer/rich) ---
+typer==0.25.1
+click==8.4.0
+rich==15.0.0
+markdown-it-py==4.2.0
+mdurl==0.1.2
+Pygments==2.20.0
+shellingham==1.5.4
