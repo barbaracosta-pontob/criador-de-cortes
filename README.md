@@ -90,11 +90,30 @@ Praticamente todo o setup acontece no **Terminal** (também chamado de "Prompt d
 
 ## Setup completo — passo a passo (primeira vez)
 
+### Passo 0.0 — Já tem alguma coisa instalada? (COMECE AQUI)
+
+**Se você já usou o Editor de Vídeos da Ponto B nessa máquina, provavelmente já tem tudo instalado.** Antes de sair baixando as 4 ferramentas do Passo 0, cole o comando abaixo num terminal PowerShell pra ver o que tá faltando:
+
+```powershell
+$t={param($x)try{iex "$x 2>&1"|select -First 1}catch{}};$c=@(@{n="Node.js";c="node --version";url="https://nodejs.org"},@{n="Python 3.12";c="py -3.12 --version";url="https://www.python.org/downloads/release/python-3128/"},@{n="FFmpeg";c="ffmpeg -version";url="winget install Gyan.FFmpeg (admin)"},@{n="Git";c="git --version";url="https://git-scm.com/download/win"});$c|%{$r=& $t $_.c;if($r){Write-Host "OK   " -F Green -NoNewline;Write-Host "$($_.n)  $r"}else{Write-Host "FALTA" -F Red -NoNewline;Write-Host "  $($_.n) -> $($_.url)"}}
+```
+
+Vai mostrar cada ferramenta com **OK** (verde) ou **FALTA** (vermelho + link pra instalar).
+
+- **Tudo OK?** Pule direto pro **Passo 1** (baixar o código).
+- **Algo FALTA?** Só faça o subpasso do Passo 0 correspondente:
+  - Node.js → 0.1
+  - Python 3.12 → 0.2
+  - FFmpeg → 0.3
+  - Git → 0.5
+
+O **Passo 0.4 (Visual C++ Redistributable)** não aparece nesse check porque não tem um comando simples pra testar. Se o Editor de Vídeos já roda transcrição na sua máquina, você já tem ele — pode pular. Se não tem certeza, é chato mas rápido de instalar por garantia (segue o Passo 0.4 abaixo).
+
+---
+
 ### Passo 0 — Instalar as ferramentas básicas no sistema
 
-Antes de baixar o código, você precisa instalar 4 programas no Windows. Cada um faz uma parte diferente do trabalho.
-
-> **Se você já usa o Editor de Vídeos da Ponto B nesta máquina, provavelmente já tem tudo isso instalado.** Pode pular direto pro Passo 1.
+Só faça os subpassos que ficaram **FALTA** no Passo 0.0 acima. Se todos deram OK, já pode pular pra `Passo 1`.
 
 #### 0.1 — Node.js (motor que roda o site do Cut Creator)
 
