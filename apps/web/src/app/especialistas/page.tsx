@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { slugify } from "@/lib/slugify";
 import styles from "./page.module.css";
 
 type Especialista = {
@@ -60,6 +61,11 @@ export default function EspecialistasPage() {
     setError("");
     try {
       const isEdit = Boolean(editing);
+      // Na criação, o slug é derivado do nome (o backend também revalida e
+      // desambigua). Sem nome que gere slug, nem envia.
+      if (!isEdit && !slugify(form.nome)) {
+        throw new Error("Informe um nome válido para o especialista.");
+      }
       const url = isEdit ? `/api/especialistas/${editing}` : "/api/especialistas";
       const res = await fetch(url, {
         method: isEdit ? "PUT" : "POST",
@@ -100,14 +106,19 @@ export default function EspecialistasPage() {
         <form className={styles.card} onSubmit={save}>
           <h2 className={styles.cardTitle}>{editing ? `Editar: ${editing}` : "Novo especialista"}</h2>
 
-          {!editing && (
-            <Field label="Slug (id único, ex: dra-denise)">
-              <input className={styles.input} value={form.slug} onChange={set("slug")} placeholder="dra-denise" required />
-            </Field>
-          )}
           <Field label="Nome">
             <input className={styles.input} value={form.nome} onChange={set("nome")} required />
           </Field>
+          {!editing && form.nome.trim() !== "" && (
+            <p className={styles.slugHint}>
+              Identificador: <code>{slugify(form.nome) || "—"}</code>
+            </p>
+          )}
+          {editing && (
+            <p className={styles.slugHint}>
+              Identificador: <code>{editing}</code> <span className={styles.slugFixed}>(fixo)</span>
+            </p>
+          )}
           <Field label="Cargo">
             <input className={styles.input} value={form.cargo} onChange={set("cargo")} placeholder="Psiquiatra" />
           </Field>

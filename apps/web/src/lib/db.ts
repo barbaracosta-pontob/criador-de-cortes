@@ -11,6 +11,7 @@
 
 import path from "node:path";
 import { mkdirSync, existsSync, readdirSync, readFileSync, writeFileSync, unlinkSync } from "node:fs";
+import { slugify } from "./slugify";
 
 export const REPO_ROOT = path.resolve(process.cwd(), "../..");
 export const ESPECIALISTAS_DIR = path.join(REPO_ROOT, "especialistas");
@@ -90,4 +91,25 @@ export function deleteEspecialista(slug: string): void {
 
 export function especialistaExists(slug: string): boolean {
   return existsSync(filePath(slug));
+}
+
+/** Slugs que o sistema reserva e nunca podem ser atribuídos a um cadastro. */
+function isReservedSlug(slug: string): boolean {
+  return slug === "generico" || slug.startsWith("_");
+}
+
+/**
+ * Deriva um slug a partir de um texto (nome) e garante que seja único e não
+ * reservado, anexando sufixo numérico se necessário ("dra-ana", "dra-ana-2"…).
+ * Retorna string vazia se o texto não gerar nenhum caractere válido.
+ */
+export function uniqueSlugFrom(text: string): string {
+  const base = slugify(text);
+  if (!base) return "";
+  let slug = base;
+  let n = 2;
+  while (especialistaExists(slug) || isReservedSlug(slug)) {
+    slug = `${base}-${n++}`;
+  }
+  return slug;
 }

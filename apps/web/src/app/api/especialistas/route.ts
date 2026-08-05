@@ -4,7 +4,7 @@
  */
 
 import { NextRequest, NextResponse } from "next/server";
-import { listEspecialistas, saveEspecialista, especialistaExists, type EspecialistaRow } from "@/lib/db";
+import { listEspecialistas, saveEspecialista, uniqueSlugFrom, type EspecialistaRow } from "@/lib/db";
 
 export async function GET() {
   try {
@@ -19,21 +19,20 @@ export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
 
-    if (!body.slug || !/^[a-z0-9-]+$/.test(body.slug)) {
+    // O identificador (slug) é gerado automaticamente a partir do nome — o
+    // usuário não precisa informá-lo. uniqueSlugFrom remove acentos/símbolos e
+    // desambigua nomes repetidos ("dra-ana", "dra-ana-2"…). Se o nome não
+    // gerar nenhum caractere válido, aí sim é erro de input.
+    const slug = uniqueSlugFrom(body.nome ?? "");
+    if (!slug) {
       return NextResponse.json(
-        { error: "Slug inválido. Use apenas letras minúsculas, números e hífen." },
+        { error: "Informe um nome válido para o especialista." },
         { status: 400 },
       );
     }
-    if (body.slug === "generico" || body.slug.startsWith("_")) {
-      return NextResponse.json({ error: "Esse slug é reservado pelo sistema." }, { status: 400 });
-    }
-    if (especialistaExists(body.slug)) {
-      return NextResponse.json({ error: "Já existe um especialista com esse slug." }, { status: 409 });
-    }
 
     const data: EspecialistaRow = {
-      slug: body.slug,
+      slug,
       nome: body.nome ?? "",
       cargo: body.cargo ?? "",
       nicho: body.nicho ?? "",

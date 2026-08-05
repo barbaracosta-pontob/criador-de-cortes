@@ -42,6 +42,17 @@
 .field { display: flex; flex-direction: column; gap: 6px; }
 .label { font-size: 12px; font-weight: 600; color: var(--ink-2); }
 
+.slugHint { font-size: 12px; color: var(--ink-3); margin-top: -6px; }
+.slugHint code {
+  background: rgba(0, 0, 0, 0.35);
+  border-radius: 3px;
+  padding: 1px 6px;
+  font-size: 11px;
+  color: var(--ink-2);
+  font-family: ui-monospace, "SF Mono", Consolas, monospace;
+}
+.slugFixed { color: var(--ink-ghost); }
+
 .input, .textarea {
   background: var(--surface-raised);
   border: 1px solid var(--b-mid);
